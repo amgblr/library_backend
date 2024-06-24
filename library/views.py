@@ -59,21 +59,21 @@ class AddBookView(generics.CreateAPIView):
         return Response(book_data, status=status.HTTP_201_CREATED)
 
 class BookListView(generics.ListAPIView):
-    queryset = Book.objects.all()
-
     def get(self, request, *args, **kwargs):
-        books = Book.objects.all()
-        book_list = [{
-            'book_id': book.book_id,
-            'isbn': book.isbn,
-            'title': book.title,
-            'author': book.author,
-            'publisher': book.publisher,
-            'year_of_publication': book.year_of_publication,
-            'genre': book.genre,
-            'number_of_copies': book.number_of_copies
-        } for book in books]
-        return Response(book_list, status=status.HTTP_200_OK)
+        books = Book.objects.filter(number_of_copies__gt=0)
+        book_list = []
+        for book in books:
+            book_list.append({
+                'book_id': book.book_id,
+                'isbn': book.isbn,
+                'title': book.title,
+                'author': book.author,
+                'publisher': book.publisher,
+                'year_of_publication': book.year_of_publication,
+                'genre': book.genre,
+                'number_of_copies': book.number_of_copies
+            })
+        return Response(book_list, status=status.HTTP_200_OK)  
 
 class AddBookCopyView(APIView):
     def put(self, request, *args, **kwargs):
@@ -100,4 +100,33 @@ class AddBookCopyView(APIView):
         }
         return Response(book_data, status=status.HTTP_200_OK)
     
+class DeleteBookCopyView(APIView):
+
+    def put(self, request, *args, **kwargs):
+        isbn = request.data.get('isbn')
+        copies_to_delete = int(request.data.get('copies', 0))
+
+        try:
+            book = Book.objects.get(isbn=isbn)
+        except Book.DoesNotExist:
+            return Response({'detail': 'Book not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        if book.number_of_copies < copies_to_delete:
+            return Response({'detail': 'Not enough copies to delete'}, status=status.HTTP_400_BAD_REQUEST)
+
+        book.number_of_copies -= copies_to_delete
+        book.save()
+
+        book_data = {
+            'book_id': book.book_id,
+            'isbn': book.isbn,
+            'title': book.title,
+            'author': book.author,
+            'publisher': book.publisher,
+            'year_of_publication': book.year_of_publication,
+            'genre': book.genre,
+            'number_of_copies': book.number_of_copies
+        }
+        return Response(book_data, status=status.HTTP_200_OK)
     
+
