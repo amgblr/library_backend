@@ -15,9 +15,9 @@ class User(models.Model):
 
 class Book(models.Model):
     book_id = models.AutoField(primary_key=True)
+    isbn = models.CharField(max_length=13, unique=True)
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-    isbn = models.CharField(max_length=13, unique=True)
     publisher = models.CharField(max_length=100)
     year_of_publication = models.IntegerField()
     genre = models.CharField(max_length=50)

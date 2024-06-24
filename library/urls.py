@@ -1,8 +1,10 @@
-from django.contrib import admin
 from django.urls import path
-from . import views
+from .views import AddBookView, BookListView, CreateUserView, LoginUserView,AddBookCopyView
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    
+    path('create-user/', CreateUserView.as_view(), name='create_user'),
+    path('login/', LoginUserView.as_view(), name='login_user'),
+    path('books/', BookListView.as_view(), name='book_list'),
+    path('add-book/', AddBookView.as_view(), name='add_book'),
+    path('add-book-copy/', AddBookCopyView.as_view(), name='add_book_copy'),
 ]
