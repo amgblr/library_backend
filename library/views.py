@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth.hashers import check_password
 from .models import User,Book
 from .serializers import UserSerializer, LoginSerializer
+from django.db.models import Q
 
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -101,7 +102,6 @@ class AddBookCopyView(APIView):
         return Response(book_data, status=status.HTTP_200_OK)
     
 class DeleteBookCopyView(APIView):
-
     def put(self, request, *args, **kwargs):
         isbn = request.data.get('isbn')
         copies_to_delete = int(request.data.get('copies', 0))
@@ -130,3 +130,30 @@ class DeleteBookCopyView(APIView):
         return Response(book_data, status=status.HTTP_200_OK)
     
 
+# class SearchBooksView(APIView):
+#     def get(self, request, *args, **kwargs):
+#         query = request.GET.get('q', '')
+
+#         if not query:
+#             return Response({'detail': 'Query parameter is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+#         books = Book.objects.filter(
+#             Q(title__icontains=query) |
+#             Q(author__icontains=query) |
+#             Q(publisher__icontains=query) |
+#             Q(genre__icontains=query) |
+#             Q(isbn__icontains=query)
+#         )
+
+#         book_list = [{
+#             'book_id': book.book_id,
+#             'isbn': book.isbn,
+#             'title': book.title,
+#             'author': book.author,
+#             'publisher': book.publisher,
+#             'year_of_publication': book.year_of_publication,
+#             'genre': book.genre,
+#             'number_of_copies': book.number_of_copies
+#         } for book in books]
+
+#         return Response(book_list, status=status.HTTP_200_OK)

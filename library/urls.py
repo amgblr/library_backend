@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AddBookView, BookListView, CreateUserView, DeleteBookCopyView, LoginUserView,AddBookCopyView
+from .views import AddBookView, BookListView, CreateUserView, DeleteBookCopyView, LoginUserView,AddBookCopyView #SearchBooksView
 
 urlpatterns = [
     path('create-user/', CreateUserView.as_view(), name='create_user'),
@@ -8,5 +8,6 @@ urlpatterns = [
     path('add-book/', AddBookView.as_view(), name='add_book'),
     path('add-book-copy/', AddBookCopyView.as_view(), name='add_book_copy'),
     path('delete-book-copy/', DeleteBookCopyView.as_view(), name='delete_book_copy'),
+    # path('search-books/', SearchBooksView.as_view(), name='search_books'),
     
 ]

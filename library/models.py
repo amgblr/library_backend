@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ValidationError
 
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -21,10 +22,15 @@ class Book(models.Model):
     publisher = models.CharField(max_length=100)
     year_of_publication = models.IntegerField()
     genre = models.CharField(max_length=50)
-    number_of_copies = models.IntegerField()
+    number_of_copies = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if self.number_of_copies < 0:
+            raise ValidationError("The number of copies cannot be negative.")
+        super(Book, self).save(*args, **kwargs)
 
 
 class Category(models.Model):
