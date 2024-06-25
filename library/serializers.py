@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
-from .models import User
+from .models import BorrowRecord, User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,3 +17,10 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField()
+
+
+class BorrowRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BorrowRecord
+        fields = '__all__'
+
