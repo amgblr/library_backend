@@ -1,0 +1,133 @@
+<html><head><base href="https://library.digitalsphere.io/borrow-book"><title>Borrow Book - Digital Sphere Library</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+  }
+  .sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+    position: fixed;
+  }
+  .sidebar h2 {
+    margin-top: 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ecf0f1;
+  }
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .sidebar ul li {
+    margin-bottom: 1rem;
+  }
+  .sidebar ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  .sidebar ul li a:hover {
+    background-color: #34495e;
+  }
+  .content {
+    margin-left: 250px;
+    flex-grow: 1;
+    padding: 2rem;
+  }
+  h1 {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+  }
+  form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  input[type="text"], input[type="number"], input[type="date"], select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  button[type="submit"] {
+    background-color: #1a5f7a;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button[type="submit"]:hover {
+    background-color: #134b61;
+  }
+  .book-info {
+    background-color: #e9f2f9;
+    border: 1px solid #b8d4e8;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  .book-info h3 {
+    margin-top: 0;
+    color: #1a5f7a;
+  }
+  .book-info p {
+    margin: 0.5rem 0;
+  }
+</style>
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>Quick Links</h2>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/add-user">Add User</a></li>
+      <li><a href="/add-book">Add Book</a></li>
+      <li><a href="/borrow-book">Borrow Book</a></li>
+      <li><a href="/return-book">Return Book</a></li>
+      <li><a href="/suggest-book">Suggest Book</a></li>
+      <li><a href="/pay-fine">Pay Fine</a></li>
+    </ul>
+  </aside>
+  <div class="content">
+    <h1>Borrow a Book</h1>
+    <form method="POST" action="/submit-borrow">
+  <label for="user-id">User ID:</label>
+  <input type="text" id="user-id" name="user-id" required="">
+
+  <label for="book-id">Book ID:</label>
+  <input type="text" id="book-id" name="book-id" placeholder="Enter Book ID" required="">
+  
+  <label for="borrow-date">Borrow Date:</label>
+  <input type="date" id="borrow-date" name="borrow-date" required="">
+
+  <label for="return-date">Expected Return Date:</label>
+  <input type="date" id="return-date" name="return-date" required="">
+
+  <button type="submit">Borrow Book</button>
+</form>
+  </div>
+</body></html>

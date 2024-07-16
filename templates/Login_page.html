@@ -1,0 +1,125 @@
+<html><head><base href="https://library.digitalsphere.io/login"><title>Login - Digital Sphere Library</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .login-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  h1 {
+    text-align: center;
+    color: #1a5f7a;
+    margin-bottom: 1.5rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  input {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  button {
+    background-color: #1a5f7a;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #154c61;
+  }
+  .links {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  .links a {
+    color: #1a5f7a;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .links a:hover {
+    text-decoration: underline;
+  }
+  .error-message {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    display: none;
+  }
+</style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="loginForm" onsubmit="return validateForm()">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+      <div id="emailError" class="error-message"></div>
+      
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+      <div id="passwordError" class="error-message"></div>
+      
+      <button type="submit">Log In</button>
+    </form>
+    <div class="links">
+      <a href="/forgot-password">Forgot Password?</a> | <a href="/register">Create Account</a>
+    </div>
+  </div>
+
+  <script>
+    function validateForm() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const emailError = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+      
+      emailError.style.display = 'none';
+      passwordError.style.display = 'none';
+      
+      if (email.trim() === '') {
+        emailError.textContent = 'Email cannot be empty';
+        emailError.style.display = 'block';
+        return false;
+      }
+      
+      if (password.trim() === '') {
+        passwordError.textContent = 'Password cannot be empty';
+        passwordError.style.display = 'block';
+        return false;
+      }
+      
+      if (email === 'arthanmg@example.com' && password === 'gowinda') {
+        alert('Login successful!');
+        return true;
+      } else {
+        alert('Invalid email or password');
+        return false;
+      }
+    }
+  </script>
+</body></html>
